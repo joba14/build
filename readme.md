@@ -11,15 +11,9 @@
 
 ## Table of Contents
 - [Getting Started](#getting-started)
-	- [From Source](#from-source)
-		- [Cloning the Project](#cloning-the-project)
-		- [Dependencies](#dependencies)
-		- [Building the Project](#building-the-project)
-		- [Testing the Project](#testing-the-project)
-		- [Generating the Documentation](#generating-the-documentation)
+	- [Cloning the Project](#cloning-the-project)
 	- [Usage](#usage)
-		- [Example Project](#example-project)
-		- [Running the Compiler](#running-the-compiler)
+	- [Examples](#examples)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -47,19 +41,19 @@ To use the project, ensure you have the necessary dependencies installed. This p
 ```sh
 usage: ./build.bin [options] <targets...>
 options:
-    -h, --help
-        print this help message.
+	-h, --help
+		print this help message.
 targets:
-    clean
-        remove the build directory with all its artefacts.
-    prep
-        create build directory.
-    debug
-        build the project in debug build configuration.
-    release
-        build the project in release build configuration.
-    all
-        run all targets one after the other.
+	clean
+		remove the build directory with all its artefacts.
+	prep
+		create build directory.
+	debug
+		build the project in debug build configuration.
+	release
+		build the project in release build configuration.
+	all
+		run all targets one after the other.
 ```
 5. To run a specific target or a sequence of them, list the names of the targets separated by spaces in the ./build.bin. Here is an example for the previous step:
 ```sh
