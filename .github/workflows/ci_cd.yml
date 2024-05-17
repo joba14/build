@@ -1,0 +1,19 @@
+
+name: Populating Examples CI/CD
+
+on:
+  push:
+    branches: [ "experimental" ]
+  pull_request:
+    branches: [ "experimental" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: populate-examples
+      run: |
+        cd ./scripts
+        chmod +x ./*.sh
+        ./populate_examples.sh
