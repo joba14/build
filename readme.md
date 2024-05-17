@@ -42,7 +42,7 @@ To use the project, ensure you have the necessary dependencies installed. This p
 ### Usage
 1. Copy the [build.h](./build.h) into your project.
 2. Create build.c file and, by following examples and templates, define the build targets and rules for your project.
-3. Copy the [bootstrap.sh](./bootstrap.sh) script next to the build.c file and run it or call the command `gcc -Wall -Wextra -Werror -o ./build.bin ./build.c`. This creates a build.bin executable that will rebuild itself if any changes will be done in the build.c file. However, if you decide to modify the [build.h](./build.h) file, you will have to bootstrap it once more.
+3. Copy the [bootstrap.sh](./bootstrap.sh) script next to the build.c file and run it or call the command `rm -fr ./build && rm -fr ./build.bin && rm -fr ./build.bin.old && gcc -Wall -Wextra -Werror -o ./build.bin ./build.c`. This creates a build.bin executable that will rebuild itself if any changes will be done in the build.c file. However, if you decide to modify the [build.h](./build.h) file, you will have to bootstrap it once more.
 4. Run the build.bin with -h flag to see all the targets you defined for the build system. The output of this command should be similar to the following. *The amount of targets listed in this help message will reflect the targets you defined in the build.c file.*
 ```sh
 usage: ./build.bin [options] <targets...>
