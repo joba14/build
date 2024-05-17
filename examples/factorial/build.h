@@ -23,6 +23,10 @@
 typedef char char_t;
 typedef bool bool_t;
 
+#define build_version_major ((uint64_t)1)
+#define build_version_minor ((uint64_t)0)
+#define build_version_patch ((uint64_t)0)
+
 #define build_logger_log(_stream, _tag, _format, ...)                          \
 	do                                                                         \
 	{                                                                          \
@@ -543,6 +547,12 @@ static void build_targets_apply(build_targets_s* const targets, int32_t argc, co
 			((6 == option_length) && (strncmp(option, "--help", option_length) == 0)))
 		{
 			build_targets_usage(stdout, program, targets);
+			exit(0);
+		}
+		else if (((2 == option_length) && (strncmp(option, "-v"       , option_length) == 0)) ||
+				 ((9 == option_length) && (strncmp(option, "--version", option_length) == 0)))
+		{
+			build_logger_log(stdout, (const char_t*)NULL, "v%lu.%lu.%lu", build_version_major, build_version_minor, build_version_patch);
 			exit(0);
 		}
 		else
