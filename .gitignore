@@ -50,3 +50,17 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Custom, project-related ignores
+build
+docs
+build.bin
+build.bin.old
+
+# Visual Studio Code Counter
+.VSCodeCounter
+
+# Visual Studio Code local configs
+.vscode/*
+!.vscode/*.code-snippets
+!.vscode/settings.json
