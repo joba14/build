@@ -2,8 +2,8 @@
 /**
  * @file build.h
  * 
- * @copyright This file is a part of the "rl78emu" project and is licensed, and
- * distributed under "rl78emu gplv1" license.
+ * @copyright This file's a part of the "build" project and is distributed, and
+ * licensed under "MIT" license.
  * 
  * @author joba14
  * 

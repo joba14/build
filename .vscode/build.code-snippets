@@ -1,0 +1,39 @@
+
+{
+	"file-banner": {
+		"prefix": "file-banner",
+		"description": "file banner snippet",
+		"body": [
+			"",
+			"/**",
+			" * @file $TM_FILENAME",
+			" * ",
+			" * @copyright This file's a part of the \"build\" project and is distributed, and",
+			" * licensed under \"MIT\" license.",
+			" * ",
+			" * @author $author_name",
+			" * ",
+			" * @date $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
+			" */",
+			""
+		]
+	},
+	"file-banner-joba14": {
+		"prefix": "file-banner-joba14",
+		"description": "file banner snippet",
+		"body": [
+			"",
+			"/**",
+			" * @file $TM_FILENAME",
+			" * ",
+			" * @copyright This file's a part of the \"build\" project and is distributed, and",
+			" * licensed under \"MIT\" license.",
+			" * ",
+			" * @author joba14",
+			" * ",
+			" * @date $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
+			" */",
+			""
+		]
+	}
+}

@@ -1,0 +1,23 @@
+
+{
+	"todo-tree.general.showIconsInsteadOfTagsInStatusBar": true,
+	"todo-tree.general.tags": [
+		"bug",
+		"fixme",
+		"todo",
+		"note"
+	],
+	"todo-tree.highlights.backgroundColourScheme": [
+		"red",
+		"orange",
+		"yellow",
+		"green"
+	],
+	"todo-tree.highlights.useColourScheme": true,
+	"todo-tree.highlights.foregroundColourScheme": [
+		"white",
+		"black",
+		"black",
+		"white"
+	]
+}
