@@ -506,9 +506,10 @@ static void build_targets_usage(FILE* const stream, const char_t* const program,
 
 		assert(target != NULL);
 		assert(target->name != NULL);
+		assert(target->description != NULL);
 
 		build_logger_log(stream, (const char_t*)NULL, "    %s", target->name);
-		if (target->description != NULL) build_logger_log(stream, (const char_t*)NULL, "        %s", target->description);
+		build_logger_log(stream, (const char_t*)NULL, "        %s", target->description);
 	}
 }
 
@@ -560,6 +561,7 @@ static void build_targets_apply(build_targets_s* const targets, int32_t argc, co
 				{
 					found_target = current_target;
 					assert(found_target->name != NULL);
+					assert(found_target->description != NULL);
 					assert(found_target->build != NULL);
 					break;
 				}
