@@ -24,7 +24,7 @@ typedef char char_t;
 typedef bool bool_t;
 
 #define build_version_major ((uint64_t)1)
-#define build_version_minor ((uint64_t)0)
+#define build_version_minor ((uint64_t)1)
 #define build_version_patch ((uint64_t)0)
 
 #define build_logger_log(_stream, _tag, _format, ...)                          \
@@ -242,7 +242,7 @@ static const char_t* build_shift_args(int32_t* const argc, const char_t*** const
  * @param program the name of the program
  * @param targets targets vector
  */
-static void build_targets_usage(FILE* const stream, const char_t* const program, build_targets_s* const targets);
+static void build_targets_usage(FILE* const stream, const char_t* const program, const build_targets_s* const targets);
 
 /**
  * @brief Parse and run (in one word - apply) the provided targets from command
@@ -353,7 +353,7 @@ static int32_t build_needs_to_rebuild(const char_t* const binary_path, const cha
 
 #endif  // __build_h__
 
-#ifdef build_implementation
+#ifdef __build_c__
 
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -373,17 +373,17 @@ static bool_t build_proc_await(const build_proc_t proc)
 
 	while (true)
 	{
-		int32_t wstatus = 0;
+		int32_t status = 0;
 
-		if (waitpid(proc, &wstatus, 0) < 0)
+		if (waitpid(proc, &status, 0) < 0)
 		{
 			build_logger_error("could not await command (pid %d): %s", proc, strerror(errno));
 			return false;
 		}
 
-		if (WIFEXITED(wstatus))
+		if (WIFEXITED(status))
 		{
-			const int32_t exit_status = WEXITSTATUS(wstatus);
+			const int32_t exit_status = WEXITSTATUS(status);
 
 			if (exit_status != 0)
 			{
@@ -394,9 +394,9 @@ static bool_t build_proc_await(const build_proc_t proc)
 			break;
 		}
 
-		if (WIFSIGNALED(wstatus))
+		if (WIFSIGNALED(status))
 		{
-			build_logger_error("command process was terminated by %s", strsignal(WTERMSIG(wstatus)));
+			build_logger_error("command process was terminated by %s", strsignal(WTERMSIG(status)));
 			return false;
 		}
 	}
@@ -492,7 +492,7 @@ static const char_t* build_shift_args(int32_t* const argc, const char_t*** const
 	return argument;
 }
 
-static void build_targets_usage(FILE* const stream, const char_t* const program, build_targets_s* const targets)
+static void build_targets_usage(FILE* const stream, const char_t* const program, const build_targets_s* const targets)
 {
 	assert(stream != NULL);
 	assert(program != NULL);
@@ -664,4 +664,4 @@ static int32_t build_needs_to_rebuild(const char_t* const binary_path, const cha
 	return 0;
 }
 
-#endif  // build_implementation
+#endif  // __build_c__

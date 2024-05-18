@@ -10,7 +10,7 @@
  * @date 2024-05-17
  */
 
-#define build_implementation
+#define __build_c__
 #include "build.h"
 
 #define PROJECT_NAME "hello_world"
