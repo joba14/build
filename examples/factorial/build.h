@@ -274,17 +274,25 @@ static bool_t build_move_path(const char_t* const old_path, const char_t* const 
  */
 static int32_t build_needs_to_rebuild(const char_t* const binary_path, const char_t* const source_path);
 
-#define rebuild_self_command(_binary_path, _source_path)                       \
-	"cc",                                                                      \
-	"-Wall", "-Wextra", "-Werror",                                             \
-	"-o", _binary_path,                                                        \
-	_source_path
+#ifndef build_rebuild_self_command
+#	if _WIN32
+#		error "windows platform is not supported!"
+#	else
+#		define build_rebuild_self_command(_binary_path, _source_path)          \
+			"cc",                                                              \
+			"-Wall",                                                           \
+			"-Wextra",                                                         \
+			"-Werror",                                                         \
+			"-o", _binary_path,                                                \
+			_source_path
+#	endif
+#endif
 
 #define build_rebuild_self(_argc, _argv)                                       \
 	do                                                                         \
 	{                                                                          \
-		assert(_argc >= 1);                                                    \
-		assert(_argv != NULL);                                                 \
+		assert((_argc) >= 1);                                                  \
+		assert((_argv) != NULL);                                               \
 		                                                                       \
 		const char_t* const source_path = __FILE__;                            \
 		const char_t* const binary_path = argv[0];                             \
@@ -312,7 +320,7 @@ static int32_t build_needs_to_rebuild(const char_t* const binary_path, const cha
 			                                                                   \
 			build_command_s rebuild_command = {0};                             \
 			build_command_append(&rebuild_command,                             \
-				rebuild_self_command(binary_path, source_path));               \
+				build_rebuild_self_command(binary_path, source_path));         \
 			                                                                   \
 			const bool_t rebuild_succeeded =                                   \
 				build_proc_run_sync(&rebuild_command);                         \
@@ -325,7 +333,7 @@ static int32_t build_needs_to_rebuild(const char_t* const binary_path, const cha
 			}                                                                  \
 			                                                                   \
 			build_command_s command = {0};                                     \
-			build_vector_append_many(&command, argv, argc);                    \
+			build_vector_append_many(&command, (_argv), (_argc));              \
 			                                                                   \
 			if (!build_proc_run_sync(&command))                                \
 			{                                                                  \
@@ -565,11 +573,11 @@ static void build_targets_apply(build_targets_s* const targets, int32_t argc, co
 		}
 		else
 		{
-			build_target_s* found_target = NULL;
+			const build_target_s* found_target = NULL;
 
 			for (uint64_t index = 0; index < targets->count; ++index)
 			{
-				build_target_s* const current_target = &targets->data[index];
+				const build_target_s* const current_target = &targets->data[index];
 				assert(current_target != NULL);
 
 				assert(current_target->name != NULL);
