@@ -1,4 +1,8 @@
 
+<a href="https://github.com/joba14/build">
+	<img src="./logo.svg" alt="Logo" width="125">
+</a>
+
 ![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=for-the-badge)
 ![Languages](https://img.shields.io/badge/languages-C-brightgreen.svg?style=for-the-badge)
 ![Platforms](https://img.shields.io/badge/platforms-Linux-brightgreen.svg?style=for-the-badge)
