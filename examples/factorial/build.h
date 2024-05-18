@@ -564,15 +564,16 @@ static void build_targets_apply(build_targets_s* const targets, int32_t argc, co
 				build_target_s* const current_target = &targets->data[index];
 				assert(current_target != NULL);
 
+				assert(found_target->name != NULL);
+				assert(found_target->description != NULL);
+				assert(found_target->build != NULL);
+
 				const uint64_t target_name_length = strlen(current_target->name);
 				assert(target_name_length > 0);
 
 				if ((option_length == target_name_length) && (strncmp(option, current_target->name, option_length) == 0))
 				{
 					found_target = current_target;
-					assert(found_target->name != NULL);
-					assert(found_target->description != NULL);
-					assert(found_target->build != NULL);
 					break;
 				}
 			}
