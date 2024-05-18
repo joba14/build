@@ -336,7 +336,7 @@ static int32_t build_needs_to_rebuild(const char_t* const binary_path, const cha
 		}                                                                      \
 	} while (0)
 
-#define build_set_targets(...)                                                 \
+#define build_targets(...)                                                     \
 	int main(int32_t argc, const char_t** argv);                               \
 	                                                                           \
 	int main(int32_t argc, const char_t** argv)                                \

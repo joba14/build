@@ -76,7 +76,7 @@ build_target(all, "run all targets one after the other.")
 	return clean() && prep() && debug() && release() && run();
 }
 
-build_set_targets(
+build_targets(
 	bind_target(clean  ),
 	bind_target(prep   ),
 	bind_target(debug  ),
