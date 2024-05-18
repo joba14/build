@@ -502,6 +502,8 @@ static void build_targets_usage(FILE* const stream, const char_t* const program,
 	build_logger_log(stream, (const char_t*)NULL, "options:");
 	build_logger_log(stream, (const char_t*)NULL, "    -h, --help");
 	build_logger_log(stream, (const char_t*)NULL, "        print this help message.");
+	build_logger_log(stream, (const char_t*)NULL, "    -v, --version");
+	build_logger_log(stream, (const char_t*)NULL, "        print the version of the build.h file in use.");
 
 	build_logger_log(stream, (const char_t*)NULL, "targets:");
 	for (uint64_t index = 0; index < targets->count; ++index)
@@ -543,14 +545,20 @@ static void build_targets_apply(build_targets_s* const targets, int32_t argc, co
 		const uint64_t option_length = strlen(option);
 		assert(option_length > 0);
 
-		if (((2 == option_length) && (strncmp(option, "-h"    , option_length) == 0)) ||
-			((6 == option_length) && (strncmp(option, "--help", option_length) == 0)))
+		#define help_flag_short_name "-h"
+		#define help_flag_long_name "--help"
+
+		#define help_version_short_name "-v"
+		#define help_version_long_name "--version"
+
+		if ((((sizeof(help_flag_short_name) - 1) == option_length) && (strncmp(option, help_flag_short_name, option_length) == 0)) ||
+			(((sizeof(help_flag_long_name)  - 1) == option_length) && (strncmp(option, help_flag_long_name , option_length) == 0)))
 		{
 			build_targets_usage(stdout, program, targets);
 			exit(0);
 		}
-		else if (((2 == option_length) && (strncmp(option, "-v"       , option_length) == 0)) ||
-				 ((9 == option_length) && (strncmp(option, "--version", option_length) == 0)))
+		else if ((((sizeof(help_version_short_name) - 1) == option_length) && (strncmp(option, help_version_short_name, option_length) == 0)) ||
+				 (((sizeof(help_version_long_name)  - 1) == option_length) && (strncmp(option, help_version_long_name,  option_length) == 0)))
 		{
 			build_logger_log(stdout, (const char_t*)NULL, "v%lu.%lu.%lu", build_version_major, build_version_minor, build_version_patch);
 			exit(0);
@@ -564,9 +572,9 @@ static void build_targets_apply(build_targets_s* const targets, int32_t argc, co
 				build_target_s* const current_target = &targets->data[index];
 				assert(current_target != NULL);
 
-				assert(found_target->name != NULL);
-				assert(found_target->description != NULL);
-				assert(found_target->build != NULL);
+				assert(current_target->name != NULL);
+				assert(current_target->description != NULL);
+				assert(current_target->build != NULL);
 
 				const uint64_t target_name_length = strlen(current_target->name);
 				assert(target_name_length > 0);
