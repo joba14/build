@@ -62,7 +62,6 @@ for SUBDIR in "$EXAMPLES_DIR"/*; do
 	if [ -d "$SUBDIR" ]; then
 		cd $SUBDIR
 		./$BOOTSTRAP_FILE
-		./$BUILD_BIN_FILE -v
 		./$BUILD_BIN_FILE all
 	fi
 done
