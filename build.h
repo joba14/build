@@ -280,7 +280,7 @@ static int32_t build_needs_to_rebuild(const char_t* const binary_path, const cha
 #	else
 #		define build_rebuild_self_command(_binary_path, _source_path)          \
 			"cc",                                                              \
-			"-std=gnu11"                                                       \
+			"-std=gnu11",                                                      \
 			"-Wall",                                                           \
 			"-Wextra",                                                         \
 			"-Werror",                                                         \
