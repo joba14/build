@@ -280,6 +280,7 @@ static int32_t build_needs_to_rebuild(const char_t* const binary_path, const cha
 #	else
 #		define build_rebuild_self_command(_binary_path, _source_path)          \
 			"cc",                                                              \
+			"-std=gnu11"                                                       \
 			"-Wall",                                                           \
 			"-Wextra",                                                         \
 			"-Werror",                                                         \
@@ -385,7 +386,7 @@ static bool_t build_proc_await(const build_proc_t proc)
 
 		if (waitpid(proc, &status, 0) < 0)
 		{
-			build_logger_error("could not await command (pid %d): %s", proc, strerror(errno));
+			build_logger_error("could not await command (pid %d): %s.", proc, strerror(errno));
 			return false;
 		}
 
@@ -395,7 +396,7 @@ static bool_t build_proc_await(const build_proc_t proc)
 
 			if (exit_status != 0)
 			{
-				build_logger_error("command exited with code %d", exit_status);
+				build_logger_error("command exited with code %d.", exit_status);
 				return false;
 			}
 
@@ -404,7 +405,7 @@ static bool_t build_proc_await(const build_proc_t proc)
 
 		if (WIFSIGNALED(status))
 		{
-			build_logger_error("command process was terminated by %s", strsignal(WTERMSIG(status)));
+			build_logger_error("command process was terminated by %s.", strsignal(WTERMSIG(status)));
 			return false;
 		}
 	}
@@ -418,7 +419,7 @@ static build_proc_t build_proc_run_async(build_command_s* const command)
 
 	if (command->count <= 0)
 	{
-		build_logger_error("could not run empty command");
+		build_logger_error("could not run an empty command.");
 		return build_proc_invalid;
 	}
 
@@ -447,7 +448,7 @@ static build_proc_t build_proc_run_async(build_command_s* const command)
 
 	if (proc < 0)
 	{
-		build_logger_error("could not fork child process: %s", strerror(errno));
+		build_logger_error("could not fork child process: %s.", strerror(errno));
 		return build_proc_invalid;
 	}
 
@@ -460,7 +461,7 @@ static build_proc_t build_proc_run_async(build_command_s* const command)
 
 		if (execvp(command->data[0], (char_t* const*)command->data) < 0)
 		{
-			build_logger_error("could not execute child process: %s", strerror(errno));
+			build_logger_error("could not execute child process: %s.", strerror(errno));
 			exit(1);
 		}
 
@@ -596,7 +597,7 @@ static void build_targets_apply(build_targets_s* const targets, int32_t argc, co
 
 			if (NULL == found_target)
 			{
-				build_logger_error("could not find a provided build target `%s` in targets vector", option);
+				build_logger_error("could not find a provided build target `%s` in targets vector.", option);
 				build_targets_usage(stderr, program, targets);
 				exit(1);
 			}
@@ -612,7 +613,7 @@ static void build_targets_apply(build_targets_s* const targets, int32_t argc, co
 
 		if (!selected_target->build())
 		{
-			build_logger_error("build target `%s` failed", selected_target->name);
+			build_logger_error("build target `%s` failed.", selected_target->name);
 			exit(1);
 		}
 	}
@@ -625,11 +626,11 @@ static bool_t build_move_path(const char_t* const old_path, const char_t* const 
 	assert(old_path != NULL);
 	assert(new_path != NULL);
 
-	build_logger_info("moving %s -> %s", old_path, new_path);
+	build_logger_info("moving %s -> %s.", old_path, new_path);
 
 	if (rename(old_path, new_path) < 0)
 	{
-		build_logger_error("could not move %s to %s: %s", old_path, new_path, strerror(errno));
+		build_logger_error("could not move %s to %s: %s.", old_path, new_path, strerror(errno));
 		return false;
 	}
 
@@ -650,7 +651,7 @@ static int32_t build_needs_to_rebuild(const char_t* const binary_path, const cha
 			return 1;
 		}
 
-		build_logger_error("could not stat %s: %s", binary_path, strerror(errno));
+		build_logger_error("could not stat %s: %s.", binary_path, strerror(errno));
 		return -1;
 	}
 
@@ -658,7 +659,7 @@ static int32_t build_needs_to_rebuild(const char_t* const binary_path, const cha
 
 	if (stat(source_path, &statbuf) < 0)
 	{
-		build_logger_error("could not stat %s: %s", source_path, strerror(errno));
+		build_logger_error("could not stat %s: %s.", source_path, strerror(errno));
 		return -1;
 	}
 
