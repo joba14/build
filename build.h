@@ -137,6 +137,8 @@ typedef struct
 			                                                                   \
 			build_vector_append_many((_string), cstr, strlen(cstr));           \
 		}                                                                      \
+		                                                                       \
+		(_string)->data[(_string)->count] = '\0';                              \
 	} while (0)
 
 typedef struct
